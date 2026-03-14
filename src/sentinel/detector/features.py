@@ -1,5 +1,6 @@
 from sentinel.collector.models import NormalizedEvent
 
+
 REGION_ENCODING = {
     "us-east-1": 0,
     "us-west-2": 1,

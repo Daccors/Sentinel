@@ -36,3 +36,8 @@ class AnomalyDetector:
                 "score": score
             })
         return pd.DataFrame(data)
+    
+class ScoredEvent(NormalizedEvent):
+    anomaly_score : float
+    is_anomaly : bool
+
