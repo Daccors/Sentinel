@@ -1,4 +1,4 @@
-# CloudSentinel 🛡️
+# Sentinel 🛡️
 
 > Real-time IAM behavioral threat detection engine
 
