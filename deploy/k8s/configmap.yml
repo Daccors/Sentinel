@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sentinel-config
+  namespace: sentinel
+data:
+  KAFKA_URL: "kafka-service:9092"
+  ELASTICSEARCH_URL: "http://elasticsearch-service:9200"
