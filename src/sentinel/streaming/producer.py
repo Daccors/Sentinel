@@ -1,5 +1,4 @@
 from confluent_kafka import Producer
-from sentinel.collector.models import NormalizedEvent
 import structlog
 
 logger = structlog.get_logger()

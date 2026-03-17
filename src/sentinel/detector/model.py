@@ -27,7 +27,6 @@ class AnomalyDetector:
     def table_score(self, events: list[NormalizedEvent]) -> pd.DataFrame:
         data = []
         for event in events:
-            features = extract_features(event)
             score = self.score(event)
             data.append({
                 "timestamp": event.timestamp,
