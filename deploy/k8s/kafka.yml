@@ -27,8 +27,6 @@ spec:
               value: "PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093"
             - name: KAFKA_ADVERTISED_LISTENERS
               value: "PLAINTEXT://kafka-service:9092"
-            - name: KAFKA_CONTROLLER_QUORUM_VOTERS
-              value: "1@kafka-service:9093"
             - name: KAFKA_CONTROLLER_LISTENER_NAMES
               value: "CONTROLLER"
             - name: KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR
@@ -37,10 +35,20 @@ spec:
               value: "/tmp/kafka-logs"
             - name: CLUSTER_ID
               value: "MkU3OEVBNTcwNTJENDM2Qk"
-            - name: "KAFKA_CONTROLLER_QUORUM_VOTERS"
+            - name: KAFKA_CONTROLLER_QUORUM_VOTERS
               value: "1@localhost:9093"
+            - name: KAFKA_AUTO_CREATE_TOPICS_ENABLE
+              value: "true"
+            - name: KAFKA_LOG_RETENTION_HOURS
+              value: "1"
           ports:
             - containerPort: 9092
+          volumeMounts:
+            - name: kafka-logs
+              mountPath: /tmp/kafka-logs
+      volumes:
+        - name: kafka-logs
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
