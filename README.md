@@ -1,4 +1,4 @@
-# Sentinel 🛡️
+# CloudSentinel 🛡️
 
 > Real-time IAM behavioral threat detection engine
 
@@ -27,6 +27,7 @@ graph LR
 | Storage | Elasticsearch 9.x |
 | Visualization | Kibana |
 | Containerization | Docker, Kubernetes |
+| Infrastructure | Terraform |
 | CI/CD | GitHub Actions |
 
 ## Metrics
@@ -39,6 +40,8 @@ graph LR
 | False positive rate | ~10% |
 
 ## Getting Started
+
+### Docker Compose (local dev)
 ```bash
 git clone https://github.com/Daccors/Sentinel
 cd Sentinel
@@ -47,14 +50,42 @@ poetry install
 poetry run python3 test_kafka.py
 ```
 
+### Kubernetes
+```bash
+kubectl apply -f deploy/k8s/namespace.yml
+kubectl apply -f deploy/k8s/configmap.yml
+kubectl apply -f deploy/k8s/elasticsearch.yml
+kubectl apply -f deploy/k8s/kafka.yml
+kubectl apply -f deploy/k8s/sentinel.yml
+```
+
+### Terraform
+```bash
+cd deploy/terraform
+terraform init
+terraform apply
+```
+
 ## Features
 
 - CloudTrail log parsing and normalization (Pydantic)
 - Real-time event streaming via Apache Kafka
 - Behavioral anomaly detection with Isolation Forest
+- Automatic MITRE ATT&CK tagging (T1078, T1136, T1484)
 - Automatic scoring and threshold-based alerting
 - Kibana dashboard for event visualization
-- MITRE ATT&CK action tagging
+- 89% unit test coverage, CI/CD GitHub Actions
+- SAST analysis with Semgrep, Docker image scanning with Trivy
+
+## Security of the project itself
+
+This project applies the same security principles it defends:
+
+- No secrets hardcoded — environment variables via ConfigMap
+- Non-root Docker image
+- Automated vulnerability scanning (Trivy) on every push
+- Static code analysis (Semgrep) on every push
+- Strict `.gitignore` — no `.env` files committed
 
 ## Project Structure
 ```
@@ -63,4 +94,20 @@ src/sentinel/
 ├── streaming/      # Kafka producer & consumer
 ├── storage/        # Elasticsearch client
 └── detector/       # ML features & Isolation Forest model
+
+deploy/
+├── k8s/            # Kubernetes manifests
+└── terraform/      # Terraform infrastructure as code
+
+docs/
+└── adr/            # Architecture Decision Records
 ```
+
+## Architecture Decisions
+
+Key architectural choices are documented in [`docs/adr/`](docs/adr/) :
+
+- [ADR-001](docs/adr/001-kafka-vs-simple-queue.md) — Kafka vs Simple Queue
+- [ADR-002](docs/adr/002-isolation-forest-vs-autoencoder.md) — Isolation Forest vs Autoencoder
+- [ADR-003](docs/adr/003-elasticsearch-vs-postgresql.md) — Elasticsearch vs PostgreSQL
+- [ADR-004](docs/adr/004-normalized-event-schema.md) — Normalized Event Schema
