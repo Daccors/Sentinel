@@ -41,30 +41,18 @@ graph LR
 
 ## Getting Started
 
-### Docker Compose (local dev)
+## Getting Started
 ```bash
 git clone https://github.com/Daccors/Sentinel
 cd Sentinel
-docker compose up -d
-poetry install
-poetry run python3 test_kafka.py
+chmod +x deploy.sh
+./deploy.sh
 ```
 
-### Kubernetes
-```bash
-kubectl apply -f deploy/k8s/namespace.yml
-kubectl apply -f deploy/k8s/configmap.yml
-kubectl apply -f deploy/k8s/elasticsearch.yml
-kubectl apply -f deploy/k8s/kafka.yml
-kubectl apply -f deploy/k8s/sentinel.yml
-```
-
-### Terraform
-```bash
-cd deploy/terraform
-terraform init
-terraform apply
-```
+Choose your environment:
+- `1` — Local development (Docker Compose + Kibana)
+- `2` — Kubernetes (minikube)
+- `3` — Kubernetes + Terraform (full IaC deployment)
 
 ## Features
 
