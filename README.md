@@ -40,8 +40,6 @@ graph LR
 | False positive rate | ~10% |
 
 ## Getting Started
-
-## Getting Started
 ```bash
 git clone https://github.com/Daccors/Sentinel
 cd Sentinel
